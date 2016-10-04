@@ -22,7 +22,8 @@ Form_Module::~Form_Module()
 void Form_Module::getENV()
 {
     QNetworkRequest request;
-    QString strURL = "http://localhost/sarasvati/api/sarasvati.php?get=environment&api_key=" + api_key + "&format=json";
+    QString server = SERVER;
+    QString strURL = server + "/sarasvati.php?get=environment&api_key=" + api_key + "&format=json";
     QUrl url =  QUrl::fromEncoded(strURL.toUtf8());
     request.setUrl(url);
     manager->get(request);
@@ -31,7 +32,8 @@ void Form_Module::getENV()
 void Form_Module::getDATA()
 {
     QNetworkRequest request;
-    QString strURL = "http://localhost/sarasvati/api/sarasvati.php?get=data&api_key=" + api_key + "&format=json";
+    QString server = SERVER;
+    QString strURL = server + "/sarasvati.php?get=data&api_key=" + api_key + "&format=json";
     QUrl url =  QUrl::fromEncoded(strURL.toUtf8());
     request.setUrl(url);
     manager->get(request);

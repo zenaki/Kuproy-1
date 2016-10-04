@@ -23,6 +23,8 @@
 
 #define MAX_RTU 10
 
+#define SERVER "http://66.228.59.91:8080"
+
 struct gsm_mod {
     QString opt;
     QString device_name;

@@ -22,8 +22,9 @@ Login::~Login()
 void Login::on_pbOK_clicked()
 {
     QNetworkRequest request;
-
-    QUrl url =  QUrl::fromEncoded("http://localhost/sarasvati/api/sarasvati.php?get=user&format=json");
+    QString server = SERVER;
+    QString str_url = server + "/sarasvati/api/sarasvati.php?get=user&format=json";
+    QUrl url =  QUrl::fromEncoded(str_url.toUtf8());
     request.setUrl(url);
     manager->get(request);
 }
