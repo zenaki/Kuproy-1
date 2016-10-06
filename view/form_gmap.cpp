@@ -1,24 +1,32 @@
 #include "form_gmap.h"
 #include "ui_form_gmap.h"
 
-Form_Gmap::Form_Gmap(QWidget *parent, QString key) :
+Form_Gmap::Form_Gmap(QWidget *parent, QString ReqLatLng) :
     QDialog(parent),
     ui(new Ui::Form_Gmap)
 {
     ui->setupUi(this);
 
-    manager = new QNetworkAccessManager(this);
-    connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(replyFinished(QNetworkReply *)));
-
     connect(ui->webView->page(), SIGNAL(loadFinished(bool)), this, SLOT(pageFinished()));
-    this->setMap();
+//    ui->webView->reload();
+
+    tmr = new QTimer(this);
+    connect(tmr, SIGNAL(timeout()), this, SLOT(TimeOut()));
+
+    this->installEventFilter(this);
+
+    Request = ReqLatLng;
+
+    loading = new QMovie(":/images/loadig-bar.gif");
+    ui->lbl_GIF->setMovie(loading);
+    loading->start();
+
+    this->on_pb_refresh_clicked();
 }
 
 Form_Gmap::~Form_Gmap()
 {
     delete ui;
-//    this->destroy();
-//    this->parentWidget()->close();
 }
 
 void Form_Gmap::setMap()
@@ -43,17 +51,32 @@ void Form_Gmap::setMap()
     }
 }
 
-void Form_Gmap::setLatLng(QString Request) {
-    Request = "-6.40333;106.88776;Module_1;RTU.01;-6.40;106.88776;Module_2;RTU.02";
+void Form_Gmap::setLatLng()
+{
+//    Request = "-6.40333;106.88776;Module_1;RTU.01;-6.40;106.88776;Module_2;RTU.02";
     ui->webView->page()->runJavaScript(QString("split_LatLng('%1');").arg(Request));
+    ui->lbl_GIF->hide(); ui->lbl_loading->hide(); tmr->stop();
 }
 
 void Form_Gmap::pageFinished()
 {
-    this->setLatLng("Debug");
+    this->setLatLng();
 }
 
-void Form_Gmap::replyFinished(QNetworkReply *reply)
+void Form_Gmap::TimeOut()
 {
 
+}
+
+//void Form_Gmap::eventFilter(QObject *o, QEvent *e)
+//{
+//    if (e->type() == QEvent::FocusIn) {
+//        this->setMap();
+//    }
+//}
+
+void Form_Gmap::on_pb_refresh_clicked()
+{
+    ui->lbl_GIF->show(); ui->lbl_loading->show(); tmr->start(TIMEOUT);
+    this->setMap();
 }

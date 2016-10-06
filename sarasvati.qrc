@@ -7,5 +7,7 @@
         <file>images/settings.png</file>
         <file>images/icon-daun-biru.png</file>
         <file>map/gmap.html</file>
+        <file>images/loading-mini-circle.gif</file>
+        <file>images/loadig-bar.gif</file>
     </qresource>
 </RCC>

@@ -18,7 +18,8 @@ SOURCES += main.cpp\
         model/mtreeview.cpp \
         model/mdi.cpp \
     view/form_gmap.cpp \
-    view/form_module.cpp
+    view/form_module.cpp \
+    control/work.cpp
 
 HEADERS  += view/mainwindow.h \
         view/login.h \
@@ -26,7 +27,8 @@ HEADERS  += view/mainwindow.h \
         model/mtreeview.h \
         model/mdi.h \
     view/form_gmap.h \
-    view/form_module.h
+    view/form_module.h \
+    control/work.h
 
 FORMS    += view/mainwindow.ui \
         view/login.ui \

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>637</width>
-    <height>381</height>
+    <height>448</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -137,6 +137,108 @@
            </item>
            <item row="1" column="2">
             <widget class="QLabel" name="le_serial_number">
+             <property name="minimumSize">
+              <size>
+               <width>141</width>
+               <height>27</height>
+              </size>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLabel" name="lbl_sc_latitude">
+             <property name="minimumSize">
+              <size>
+               <width>5</width>
+               <height>17</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>5</width>
+               <height>17</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2">
+            <widget class="QLabel" name="le_latitude">
+             <property name="minimumSize">
+              <size>
+               <width>141</width>
+               <height>27</height>
+              </size>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="lbl_latitude">
+             <property name="minimumSize">
+              <size>
+               <width>130</width>
+               <height>17</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>130</width>
+               <height>17</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Latitude</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="lbl_longitude">
+             <property name="minimumSize">
+              <size>
+               <width>130</width>
+               <height>17</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>130</width>
+               <height>17</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Longitude</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLabel" name="lbl_sc_longitude">
+             <property name="minimumSize">
+              <size>
+               <width>5</width>
+               <height>17</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>5</width>
+               <height>17</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="2">
+            <widget class="QLabel" name="le_longitude">
              <property name="minimumSize">
               <size>
                <width>141</width>
@@ -1143,7 +1245,7 @@
               </widget>
              </item>
              <item row="7" column="2">
-              <widget class="QLabel" name="le_passwd_2">
+              <widget class="QLabel" name="le_password_2">
                <property name="minimumSize">
                 <size>
                  <width>141</width>
@@ -1178,6 +1280,44 @@
       </layout>
      </widget>
     </widget>
+   </item>
+   <item row="1" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="lbl_GIF">
+       <property name="text">
+        <string>GIF</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="lbl_loading">
+       <property name="text">
+        <string>Loading ...</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pb_refresh">
+       <property name="text">
+        <string>Refresh</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>

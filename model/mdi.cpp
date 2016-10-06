@@ -5,11 +5,11 @@ mdi::mdi()
 
 }
 
-void mdi::new_Gmap_Window(QWidget *parent, QMdiArea *mdiArea, QString title, QString key)
+void mdi::new_Gmap_Window(QWidget *parent, QMdiArea *mdiArea, QString title, QString ReqLatLng)
 {
     Form_Gmap *fGmap;
 
-    fGmap = new Form_Gmap(parent, key);
+    fGmap = new Form_Gmap(parent, ReqLatLng);
     fGmap->setModal(true);
     fGmap->setWindowTitle(title);
     fGmap->setMaximumSize(mdiArea->maximumSize());
@@ -17,14 +17,15 @@ void mdi::new_Gmap_Window(QWidget *parent, QMdiArea *mdiArea, QString title, QSt
 
     mdiArea->addSubWindow(fGmap, 0);
     fGmap->exec();
+//    fGmap->adjustSize();
 //    fGmap->setFocus();
 }
 
-void mdi::new_Module_Window(QWidget *parent, QMdiArea *mdiArea, QString title, QString key)
+void mdi::new_Module_Window(QWidget *parent, QMdiArea *mdiArea, QString title, QString key, int id)
 {
     Form_Module *fModule;
 
-    fModule = new Form_Module(parent, key);
+    fModule = new Form_Module(parent, key, id);
     fModule->setModal(true);
     fModule->setWindowTitle(title);
 //    fModule->setFixedWidth(800);

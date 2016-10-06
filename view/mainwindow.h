@@ -2,10 +2,12 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QLabel>
 
 #include "util/global.h"
 #include "model/mtreeview.h"
 #include "model/mdi.h"
+#include "control/work.h"
 
 namespace Ui {
 class MainWindow;
@@ -30,15 +32,22 @@ private:
     QStandardItemModel *modelTree;
     mTreeView mTree;
     mdi mDi;
+    work w;
 
     QNetworkAccessManager *manager;
-    int jml_module; QString api_key;
-    struct module module_rtu[MAX_RTU];
+//    int jml_module; QString api_key;
+//    struct module module_rtu[MAX_RTU];
+    QTimer *tmr;
+    QLabel *lbl_GIF;
+    QLabel *lbl_loading;
+    QMovie *loading;
 
-    void getENV();
-    void getDATA();
+    struct tree t;
+
+//    void getENV();
+//    void getDATA();
     void refreshTree();
-    void refreshData();
+//    void getTreeID();
 };
 
 #endif // MAINWINDOW_H

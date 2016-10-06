@@ -20,10 +20,20 @@
 #include <QMdiSubWindow>
 
 #include <QFile>
+#include <QMovie>
+#include <QTimer>
 
 #define MAX_RTU 10
 
+#define TIMEOUT 5000
+
 #define SERVER "http://66.228.59.91:8080"
+//#define SERVER "http://localhost"
+
+struct data {
+    QStringList regData;
+    QStringList valData;
+};
 
 struct gsm_mod {
     QString opt;
@@ -37,6 +47,7 @@ struct gsm_mod {
 };
 
 struct module {
+    QModelIndex treeModule;
     int id;
     QString module_name;
     QString serial_number;
@@ -51,6 +62,17 @@ struct module {
     QStringList valData;
 
     struct gsm_mod gsm[2];
+    int jml_gsm;
+};
+
+struct tree {
+    QModelIndex maps;
+    QString ReqLatLng;
+    QString key;
+    struct module module[MAX_RTU];
+    int jml_module;
+
+    struct data d;
 };
 
 #endif // GLOBAL_H

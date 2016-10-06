@@ -22,12 +22,16 @@ private slots:
     void on_pbOK_clicked();
     void on_pbExit_clicked();
     void replyFinished(QNetworkReply *reply);
+    void TimeOut();
 
 private:
     Ui::Login *ui;
 
     QNetworkAccessManager *manager;
+    QTimer *t;
     MainWindow *mainwindow;
+
+    QMovie *loading;
 };
 
 #endif // LOGIN_H

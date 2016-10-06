@@ -10,8 +10,8 @@ class mdi
 public:
     mdi();
 
-    void new_Gmap_Window(QWidget *parent, QMdiArea *mdiArea, QString title, QString key);
-    void new_Module_Window(QWidget *parent, QMdiArea *mdiArea, QString title, QString key);
+    void new_Gmap_Window(QWidget *parent, QMdiArea *mdiArea, QString title, QString ReqLatLng);
+    void new_Module_Window(QWidget *parent, QMdiArea *mdiArea, QString title, QString key, int id);
 };
 
 #endif // MDI_H

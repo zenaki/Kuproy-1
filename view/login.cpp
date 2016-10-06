@@ -10,8 +10,16 @@ Login::Login(QWidget *parent) :
     manager = new QNetworkAccessManager(this);
     connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(replyFinished(QNetworkReply *)));
 
+    t = new QTimer(this);
+    connect(t, SIGNAL(timeout()), this, SLOT(TimeOut()));
+
     connect(ui->leUsername, SIGNAL(returnPressed()), ui->pbOK, SIGNAL(clicked()));
     connect(ui->lePassword, SIGNAL(returnPressed()), ui->pbOK, SIGNAL(clicked()));
+
+    loading = new QMovie(":/images/loading-mini-circle.gif");
+    loading->start();
+    ui->lbl_GIF->setMovie(loading);
+    ui->lbl_GIF->hide();
 }
 
 Login::~Login()
@@ -27,6 +35,8 @@ void Login::on_pbOK_clicked()
     QUrl url =  QUrl::fromEncoded(str_url.toUtf8());
     request.setUrl(url);
     manager->get(request);
+    t->start(TIMEOUT);
+    ui->lbl_GIF->show();
 }
 
 void Login::on_pbExit_clicked()
@@ -41,6 +51,7 @@ void Login::on_pbExit_clicked()
 
 void Login::replyFinished(QNetworkReply *reply)
 {
+    ui->lbl_GIF->hide(); t->stop();
     QByteArray data;
     data.clear();
     data = reply->readAll();
@@ -64,4 +75,10 @@ void Login::replyFinished(QNetworkReply *reply)
     } else {
         QMessageBox::information(this, "Sarasvati Operational", "Login Fail ..!! \r\n Please check your username and password ..");
     }
+}
+
+void Login::TimeOut()
+{
+    ui->lbl_GIF->hide(); t->stop();
+    QMessageBox::critical(this, "Sarasati Opearational - Login", "Cannot login ,,\r\nPlease check your internet connection ..");
 }
