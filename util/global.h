@@ -27,8 +27,7 @@
 
 #define MAX_RTU 10
 #define TIMEOUT 5000
-#define SERVER "http://66.228.59.91:8080"
-//#define SERVER "http://localhost"
+#define SERVER "http://dev.daunbiru.com:8080"
 
 struct data {
     QStringList regData;
