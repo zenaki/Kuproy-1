@@ -1,0 +1,79 @@
+[DEBREATE-0.7.10]
+<<CTRL>>
+Package: sarasvati-operational-beta
+Version: 0.1
+Section: utils
+Maintainer: Dendy Gema <dendy@daunbiru.com>
+Homepage: http://www.daunbiru.com
+Priority: optional
+Architecture: amd64
+Depends: qt56webengine-dbg, qt56webengine, qt56base-dbg, qt56base
+Description: Sarasvati Operational
+ Sarasvati Operational Beta Tester
+
+<</CTRL>>
+<<FILES>>
+1
+/home/zenaki/QT Project/Monita/build-sarasvati-operational-QT_5_6_1_From_Repo-Release/sarasvati-operational* -> sarasvati-operational -> /usr/local/bin
+<</FILES>>
+<<SCRIPTS>>
+<<PREINST>>
+1
+#! /bin/bash -e
+
+read -p "Ingin Menambahkan Repository qt56 ?? [y/N] "
+if [[ $REPLY =~ ^[Yy]$ ]];
+then
+    echo "add-apt-repository http://119.18.154.235:8077/html/repo/qt561-trusty trusty main";
+    add-apt-repository 'http://119.18.154.235:8077/html/repo/qt561-trusty trusty main';
+
+    read -p "Ingin Update Repository List ?? [y/N] "
+    if [[ $REPLY =~ ^[Yy]$ ]];
+    then
+        echo "apt-get update";
+        apt-get update;
+        echo "Update Repository List selesai ..";
+        read -r -p "Press [ENTER] untuk melanjutkan penginstallan atau [CTRL+C] untuk membatalkan penginstallan .."
+    fi
+fi
+<</PREINST>>
+<<POSTINST>>
+0
+<</POSTINST>>
+<<PRERM>>
+0
+<</PRERM>>
+<<POSTRM>>
+0
+<</POSTRM>>
+<</SCRIPTS>>
+<<CHANGELOG>>
+<<DEST>>DEFAULT<</DEST>>
+sarasvati-operational (0.1) PT. Daun Biru Engineering; urgency=low
+
+  * - Beta Tester
+
+ -- Dendy Gema <dendy@daunbiru.com>  Thu, 6 Oct 2016 17:00:00 +0700
+<</CHANGELOG>>
+<<COPYRIGHT>>
+copyright PT. Daun Biru Engineering Indonesia
+<</COPYRIGHT>>
+<<MENU>>
+1
+Name=Sarasati Operational ver 0.1 Beta Tester
+Version=1.0
+Exec=/usr/local/bin/sarasvati-operational
+Comment=Sarasvati Operational ver 0.1 Beta Tester (by PT. Daun Biru Engineering)
+Icon=
+Type=Application
+Terminal=false
+StartupNotify=false
+Encoding=UTF-8
+Categories=Network;Qt;
+Version=0.1
+<</MENU>>
+<<BUILD>>
+0
+0
+1
+<</BUILD>>
