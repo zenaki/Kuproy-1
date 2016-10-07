@@ -18,6 +18,8 @@ MainWindow::MainWindow(QWidget *parent, QString key) :
     ui->treeView->header()->setHidden(true);
     ui->treeView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
+//    ui->pte_log
+
     connect(ui->webView->page(), SIGNAL(loadFinished(bool)), this, SLOT(pageFinished()));
 
     modelTree = new QStandardItemModel(this);
