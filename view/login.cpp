@@ -11,7 +11,7 @@ Login::Login(QWidget *parent) :
     connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(replyFinished(QNetworkReply *)));
 
     t = new QTimer(this);
-    connect(t, SIGNAL(timeout()), this, SLOT(TimeOut()));
+//    connect(t, SIGNAL(timeout()), this, SLOT(TimeOut()));
 
     connect(ui->leUsername, SIGNAL(returnPressed()), ui->pbOK, SIGNAL(clicked()));
     connect(ui->lePassword, SIGNAL(returnPressed()), ui->pbOK, SIGNAL(clicked()));
@@ -20,6 +20,8 @@ Login::Login(QWidget *parent) :
     loading->start();
     ui->lbl_GIF->setMovie(loading);
     ui->lbl_GIF->hide();
+
+    t_out = false;
 }
 
 Login::~Login()
@@ -34,7 +36,8 @@ void Login::on_pbOK_clicked()
     QString str_url = server + "/sarasvati/api/sarasvati.php?get=user&format=json";
     QUrl url =  QUrl::fromEncoded(str_url.toUtf8());
     request.setUrl(url);
-    manager->get(request);
+    r = manager->get(request);
+
     t->start(TIMEOUT);
     ui->lbl_GIF->show();
 }
@@ -52,8 +55,12 @@ void Login::on_pbExit_clicked()
 void Login::replyFinished(QNetworkReply *reply)
 {
     ui->lbl_GIF->hide(); t->stop();
+    if (t_out) {
+        t_out = false;
+        reply->abort();
+        return;
+    }
     QByteArray data;
-    data.clear();
     data = reply->readAll();
 
     QJsonObject object = QJsonDocument::fromJson(data).object();
@@ -80,5 +87,6 @@ void Login::replyFinished(QNetworkReply *reply)
 void Login::TimeOut()
 {
     ui->lbl_GIF->hide(); t->stop();
+    t_out = true; manager->finished(r);
     QMessageBox::critical(this, "Sarasati Opearational - Login", "Cannot login ,,\r\nPlease check your internet connection ..");
 }

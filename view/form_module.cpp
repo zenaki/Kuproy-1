@@ -154,6 +154,6 @@ void Form_Module::TimeOut()
 void Form_Module::on_pb_refresh_clicked()
 {
     ui->lbl_GIF->show(); ui->lbl_loading->show(); tmr->start(TIMEOUT);
-    w.request_ENV(manager, api_key);
-    w.request_Data(manager, api_key, module_id);
+//    w.request_ENV(manager, api_key);
+//    w.request_Data(manager, api_key, module_id);
 }

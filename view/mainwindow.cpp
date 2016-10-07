@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent, QString key) :
     connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(replyFinished(QNetworkReply *)));
 
     tmr = new QTimer(this);
-    connect(tmr, SIGNAL(timeout()), this, SLOT(TimeOut()));
+//    connect(tmr, SIGNAL(timeout()), this, SLOT(TimeOut()));
 
     ui->treeView->header()->setHidden(true);
     ui->treeView->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -40,6 +40,7 @@ MainWindow::MainWindow(QWidget *parent, QString key) :
 
     t.key = key;
     module_id = 0;
+    t_out = false;
     this->on_actionRefresh_triggered();
 }
 
@@ -51,6 +52,11 @@ MainWindow::~MainWindow()
 void MainWindow::replyFinished(QNetworkReply *reply)
 {
     lbl_GIF->hide(); lbl_loading->hide(); tmr->stop();
+    if (t_out) {
+        t_out = false;
+        reply->abort();
+        return;
+    }
     QByteArray data;
     data = reply->readAll();
 
@@ -310,6 +316,8 @@ void MainWindow::pageFinished()
 
 void MainWindow::TimeOut()
 {
+    lbl_GIF->hide(); lbl_loading->hide(); tmr->stop();
+    t_out = true; manager->finished(r);
     QMessageBox::critical(this, "Sarasvati Operational", "Timeout !");
 }
 
@@ -317,11 +325,11 @@ void MainWindow::on_actionRefresh_triggered()
 {
     lbl_GIF->show(); lbl_loading->show(); tmr->start(TIMEOUT);
     t.jml_module = 0;
-    w.request_ENV(manager, t.key);
+    w.request_ENV(manager, r, t.key);
 }
 
 void MainWindow::on_pb_Refresh_Data_clicked()
 {
     lbl_GIF->show(); lbl_loading->show(); tmr->start(TIMEOUT);
-    w.request_Data(manager, t.key, module_id);
+    w.request_Data(manager, r, t.key, module_id);
 }

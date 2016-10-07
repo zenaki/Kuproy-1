@@ -39,6 +39,7 @@ private:
     work w;
 
     QNetworkAccessManager *manager;
+    QNetworkReply *r; bool t_out;
 //    int jml_module; QString api_key;
 //    struct module module_rtu[MAX_RTU];
     QTimer *tmr;
