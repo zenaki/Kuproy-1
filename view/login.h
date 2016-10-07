@@ -28,7 +28,6 @@ private:
     Ui::Login *ui;
 
     QNetworkAccessManager *manager;
-    QNetworkReply *r; bool t_out;
     QTimer *t;
     MainWindow *mainwindow;
 

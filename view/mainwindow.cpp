@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent, QString key) :
     ui->treeView->header()->setHidden(true);
     ui->treeView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-//    ui->pte_log
+    ui->pte_log->clear();
 
     connect(ui->webView->page(), SIGNAL(loadFinished(bool)), this, SLOT(pageFinished()));
 
@@ -40,7 +40,6 @@ MainWindow::MainWindow(QWidget *parent, QString key) :
 
     t.key = key;
     module_id = 0;
-    t_out = false;
     this->on_actionRefresh_triggered();
 }
 
@@ -52,16 +51,14 @@ MainWindow::~MainWindow()
 void MainWindow::replyFinished(QNetworkReply *reply)
 {
     lbl_GIF->hide(); lbl_loading->hide(); tmr->stop();
-    if (t_out) {
-        t_out = false;
-        reply->abort();
-        return;
-    }
     QByteArray data;
     data = reply->readAll();
 
     t = w.respone_json(data, t, t.key);
     if (t.lastRequest == "env") {
+        ui->pte_log->appendPlainText(
+                    QDateTime::currentDateTime().toString("HH:mm:ss:zzz - ") +
+                    "Get Environment ...");
         if (t.jml_module > 0) {
             this->refreshTree();
             this->setMap();
@@ -69,6 +66,9 @@ void MainWindow::replyFinished(QNetworkReply *reply)
             QMessageBox::critical(this, "Sarasvati Operational", "No Board has found in this user ..");
         }
     } else if (t.lastRequest == "data") {
+        ui->pte_log->appendPlainText(
+                    QDateTime::currentDateTime().toString("HH:mm:ss:zzz - ") +
+                    "Get Data ...");
         this->setDATA();
     }
 }
@@ -132,6 +132,9 @@ void MainWindow::setMap()
 
         // display contents
         ui->webView->setHtml(output);
+        ui->pte_log->appendPlainText(
+                    QDateTime::currentDateTime().toString("HH:mm:ss:zzz - ") +
+                    "Set Map ...");
     }
 }
 
@@ -141,6 +144,9 @@ void MainWindow::setLatLng()
     if (!t.ReqLatLng.isEmpty())
         ui->webView->page()->runJavaScript(QString("split_LatLng('%1');").arg(t.ReqLatLng));
     lbl_GIF->hide(); lbl_loading->hide(); tmr->stop();
+    ui->pte_log->appendPlainText(
+                QDateTime::currentDateTime().toString("HH:mm:ss:zzz - ") +
+                "Map Finished ...");
 }
 
 void MainWindow::setPage()
@@ -317,7 +323,6 @@ void MainWindow::pageFinished()
 void MainWindow::TimeOut()
 {
     lbl_GIF->hide(); lbl_loading->hide(); tmr->stop();
-    t_out = true; manager->finished(r);
     QMessageBox::critical(this, "Sarasvati Operational", "Timeout !");
 }
 
@@ -325,11 +330,17 @@ void MainWindow::on_actionRefresh_triggered()
 {
     lbl_GIF->show(); lbl_loading->show(); tmr->start(TIMEOUT);
     t.jml_module = 0;
-    w.request_ENV(manager, r, t.key);
+    ui->pte_log->appendPlainText(
+                QDateTime::currentDateTime().toString("HH:mm:ss:zzz - ") +
+                "Request Environment ...");
+    w.request_ENV(manager, t.key);
 }
 
 void MainWindow::on_pb_Refresh_Data_clicked()
 {
     lbl_GIF->show(); lbl_loading->show(); tmr->start(TIMEOUT);
-    w.request_Data(manager, r, t.key, module_id);
+    ui->pte_log->appendPlainText(
+                QDateTime::currentDateTime().toString("HH:mm:ss:zzz - ") +
+                "Request Data ...");
+    w.request_Data(manager, t.key, module_id);
 }

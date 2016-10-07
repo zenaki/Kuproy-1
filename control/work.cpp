@@ -5,7 +5,7 @@ work::work()
 
 }
 
-void work::request_ENV(QNetworkAccessManager *manager, QNetworkReply *r, QString api_key)
+void work::request_ENV(QNetworkAccessManager *manager, QString api_key)
 {
     QNetworkRequest request;
     QString server = SERVER;
@@ -13,10 +13,9 @@ void work::request_ENV(QNetworkAccessManager *manager, QNetworkReply *r, QString
     QUrl url =  QUrl::fromEncoded(strURL.toUtf8());
     request.setUrl(url);
     manager->get(request);
-    r = manager->get(request);
 }
 
-void work::request_Data(QNetworkAccessManager *manager, QNetworkReply *r, QString api_key, int id)
+void work::request_Data(QNetworkAccessManager *manager, QString api_key, int id)
 {
     QNetworkRequest request;
     QString server = SERVER;
@@ -24,7 +23,6 @@ void work::request_Data(QNetworkAccessManager *manager, QNetworkReply *r, QStrin
     QUrl url =  QUrl::fromEncoded(strURL.toUtf8());
     request.setUrl(url);
     manager->get(request);
-    r = manager->get(request);
 }
 
 struct tree work::respone_json(QByteArray data, struct tree t, QString key)

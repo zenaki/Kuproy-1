@@ -20,8 +20,6 @@ Login::Login(QWidget *parent) :
     loading->start();
     ui->lbl_GIF->setMovie(loading);
     ui->lbl_GIF->hide();
-
-    t_out = false;
 }
 
 Login::~Login()
@@ -36,7 +34,6 @@ void Login::on_pbOK_clicked()
     QString str_url = server + "/sarasvati/api/sarasvati.php?get=user&format=json";
     QUrl url =  QUrl::fromEncoded(str_url.toUtf8());
     request.setUrl(url);
-    r = manager->get(request);
 
     t->start(TIMEOUT);
     ui->lbl_GIF->show();
@@ -55,11 +52,6 @@ void Login::on_pbExit_clicked()
 void Login::replyFinished(QNetworkReply *reply)
 {
     ui->lbl_GIF->hide(); t->stop();
-    if (t_out) {
-        t_out = false;
-        reply->abort();
-        return;
-    }
     QByteArray data;
     data = reply->readAll();
 
@@ -87,6 +79,5 @@ void Login::replyFinished(QNetworkReply *reply)
 void Login::TimeOut()
 {
     ui->lbl_GIF->hide(); t->stop();
-    t_out = true; manager->finished(r);
     QMessageBox::critical(this, "Sarasati Opearational - Login", "Cannot login ,,\r\nPlease check your internet connection ..");
 }

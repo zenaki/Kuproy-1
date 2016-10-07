@@ -23,6 +23,7 @@
 #include <QFile>
 #include <QMovie>
 #include <QTimer>
+#include <QDateTime>
 
 #define MAX_RTU 10
 #define TIMEOUT 5000
