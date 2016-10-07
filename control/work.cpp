@@ -30,8 +30,8 @@ struct tree work::respone_json(QByteArray data, struct tree t, QString key)
     QJsonObject object = QJsonDocument::fromJson(data).object();
     QJsonArray env_jsonArray = object.value("Sarasvati").toObject().value("env").toArray();
     QJsonArray data_jsonArray = object.value("Sarasvati").toObject().value("data").toArray();
-    t.jml_module = 0;
     if (!env_jsonArray.isEmpty()) {
+        t.jml_module = 0;
         foreach (const QJsonValue & v, env_jsonArray) {
             if (!v.toObject().value("latitude").isNull() && !v.toObject().value("longitude").isNull()) {
                 if (!t.ReqLatLng.isEmpty()) {
@@ -92,12 +92,22 @@ struct tree work::respone_json(QByteArray data, struct tree t, QString key)
 
             t.jml_module++;
         }
+        t.lastRequest = "env";
     } else if (!data_jsonArray.isEmpty()) {
-        t.d.regData.clear(); t.d.valData.clear();
-        foreach (const QJsonValue & v, data_jsonArray) {
-            t.d.regData.append(v.toObject().value("register").toString());
-            t.d.valData.append(v.toObject().value("value").toString());
+        for (int i = 0; i < t.jml_module; i++) {
+            t.module[i].d.regData.clear();
+            t.module[i].d.valData.clear();
         }
+        foreach (const QJsonValue & v, data_jsonArray) {
+            for (int i = 0; i < t.jml_module; i++) {
+                if (v.toObject().value("id").toString().toInt() == t.module[i].id) {
+                    t.module[i].d.regData.append(v.toObject().value("register").toString());
+                    t.module[i].d.valData.append(v.toObject().value("value").toString());
+                    break;
+                }
+            }
+        }
+        t.lastRequest = "data";
     }
     return t;
 }

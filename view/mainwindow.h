@@ -24,12 +24,16 @@ public:
 private slots:
     void replyFinished(QNetworkReply *reply);
     void on_treeView_doubleClicked(const QModelIndex &index);
+    void pageFinished();
+    void TimeOut();
     void on_actionRefresh_triggered();
+    void on_pb_Refresh_Data_clicked();
 
 private:
     Ui::MainWindow *ui;
 
     QStandardItemModel *modelTree;
+    QStandardItemModel *tableModel;
     mTreeView mTree;
     mdi mDi;
     work w;
@@ -43,11 +47,21 @@ private:
     QMovie *loading;
 
     struct tree t;
+    int module_id;
 
 //    void getENV();
 //    void getDATA();
     void refreshTree();
 //    void getTreeID();
+
+    void setMap();
+    void setLatLng();
+
+    void setPage();
+    void setENV();
+    void setGSM1(int index, bool act);
+    void setGSM2(int index, bool act);
+    void setDATA();
 };
 
 #endif // MAINWINDOW_H

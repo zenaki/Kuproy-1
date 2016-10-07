@@ -24,11 +24,9 @@
 #include <QTimer>
 
 #define MAX_RTU 10
-
 #define TIMEOUT 5000
-
-#define SERVER "http://66.228.59.91:8080"
-//#define SERVER "http://localhost"
+//#define SERVER "http://66.228.59.91:8080"
+#define SERVER "http://localhost"
 
 struct data {
     QStringList regData;
@@ -58,8 +56,9 @@ struct module {
     bool web_client;
     int interval;
 
-    QStringList regData;
-    QStringList valData;
+//    QStringList regData;
+//    QStringList valData;
+    struct data d;
 
     struct gsm_mod gsm[2];
     int jml_gsm;
@@ -73,6 +72,8 @@ struct tree {
     int jml_module;
 
     struct data d;
+
+    QString lastRequest;
 };
 
 #endif // GLOBAL_H
