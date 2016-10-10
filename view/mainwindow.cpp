@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent, QString key) :
     ui->treeView->header()->setHidden(true);
     ui->treeView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
+    ui->toolBox->setCurrentIndex(0);
     ui->pte_log->clear();
 
     connect(ui->webView->page(), SIGNAL(loadFinished(bool)), this, SLOT(pageFinished()));
