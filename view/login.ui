@@ -164,6 +164,22 @@
        </item>
        <item>
         <widget class="QPushButton" name="pbExit">
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+	background-color:#599bb3;
+	border-radius:30px;
+	color:#ffffff;
+	padding:3px 30px;
+	text-decoration:none;
+}
+QPushButton:checked {
+	position:relative;
+	top:1px;
+}
+QPushButton:hover {
+ 	background-color:#408c99;
+}</string>
+         </property>
          <property name="text">
           <string>Exit</string>
          </property>
@@ -171,6 +187,22 @@
        </item>
        <item>
         <widget class="QPushButton" name="pbOK">
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+	background-color:#599bb3;
+	border-radius:30px;
+	color:#ffffff;
+	padding:3px 30px;
+	text-decoration:none;
+}
+QPushButton:checked {
+	position:relative;
+	top:1px;
+}
+QPushButton:hover {
+ 	background-color:#408c99;
+}</string>
+         </property>
          <property name="text">
           <string>OK</string>
          </property>

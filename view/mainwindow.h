@@ -7,6 +7,8 @@
 #include "util/global.h"
 #include "model/mtreeview.h"
 #include "model/mdi.h"
+#include "model/mgraph.h"
+#include "model/qcustomplot.h"
 #include "control/work.h"
 
 namespace Ui {
@@ -29,6 +31,20 @@ private slots:
     void on_actionRefresh_triggered();
     void on_pb_Refresh_Data_clicked();
 
+    void on_pb_hs_treeView_clicked();
+    void on_pb_hs_toolBox_clicked();
+    void on_pb_hs_log_clicked();
+
+    void grafik_selectionChanged();
+    void grafik_mousePress();
+    void grafik_mouseWheel();
+    void grafik_axisLabelDoubleClick(QCPAxis *axis, QCPAxis::SelectablePart part);
+    void grafik_legendDoubleClick(QCPLegend *legend, QCPAbstractLegendItem *item);
+    void grafik_titleDoubleClick(QMouseEvent *event);
+    void grafik_contextMenuRequest(QPoint pos);
+    void grafik_addRandomGraph();
+    void grafik_removeSelectedGraph();
+    void grafik_removeAllGraphs();
 private:
     Ui::MainWindow *ui;
 
@@ -36,6 +52,7 @@ private:
     QStandardItemModel *tableModel;
     mTreeView mTree;
     mdi mDi;
+    mGraph mGr;
     work w;
 
     QNetworkAccessManager *manager;
@@ -62,6 +79,11 @@ private:
     void setGSM1(int index, bool act);
     void setGSM2(int index, bool act);
     void setDATA();
+
+    void setIcon();
+
+//    void setupGrafik();
+
 };
 
 #endif // MAINWINDOW_H
