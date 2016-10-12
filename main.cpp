@@ -1,14 +1,12 @@
 #include "view/login.h"
-//#include "view/form_gmap.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    qApp->setStyleSheet( "QStatusBar::item { border: 0px}" ) ;
     Login l;
     l.show();
-//    Form_Gmap g;
-//    g.show();
 
     return a.exec();
 }

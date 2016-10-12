@@ -9,5 +9,7 @@
         <file>map/gmap.html</file>
         <file>images/loading-mini-circle.gif</file>
         <file>images/loadig-bar.gif</file>
+        <file>images/arrow.png</file>
+        <file>images/arrow-2.png</file>
     </qresource>
 </RCC>

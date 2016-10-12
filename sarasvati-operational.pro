@@ -6,7 +6,7 @@
 
 QT       += core gui widgets webenginewidgets network
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
 TARGET = sarasvati-operational
 TEMPLATE = app
@@ -19,7 +19,9 @@ SOURCES += main.cpp\
         model/mdi.cpp \
     view/form_gmap.cpp \
     view/form_module.cpp \
-    control/work.cpp
+    control/work.cpp \
+    model/qcustomplot.cpp \
+    model/mgraph.cpp
 
 HEADERS  += view/mainwindow.h \
         view/login.h \
@@ -28,7 +30,9 @@ HEADERS  += view/mainwindow.h \
         model/mdi.h \
     view/form_gmap.h \
     view/form_module.h \
-    control/work.h
+    control/work.h \
+    model/qcustomplot.h \
+    model/mgraph.h
 
 FORMS    += view/mainwindow.ui \
         view/login.ui \

@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent, QString key) :
     ui->treeView->header()->setHidden(true);
     ui->treeView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
+    ui->tabWidget->setCurrentIndex(0);
     ui->toolBox->setCurrentIndex(0);
     ui->pte_log->clear();
 
@@ -25,15 +26,21 @@ MainWindow::MainWindow(QWidget *parent, QString key) :
 
     modelTree = new QStandardItemModel(this);
     tableModel = new QStandardItemModel(this);
+    ui->toolBox->setEnabled(false);
+    mGr.setupGrafik(this, ui->customPlot);
+
+    this->setIcon();
 
     loading = new QMovie(":/images/loadig-bar.gif");
     loading->start();
 
     lbl_GIF = new QLabel(this);
+    lbl_GIF->setFrameStyle(QFrame::NoFrame);
     lbl_GIF->setMovie(loading);
 
     lbl_loading = new QLabel(this);
-    lbl_loading->setText("loading ...");
+    lbl_loading->setFrameStyle(QFrame::NoFrame);
+    lbl_loading->setText("Loading ...");
 
     this->statusBar()->addWidget(lbl_GIF);
     this->statusBar()->addWidget(lbl_loading);
@@ -152,6 +159,7 @@ void MainWindow::setLatLng()
 
 void MainWindow::setPage()
 {
+    ui->toolBox->setEnabled(true);
     this->setENV();
     this->on_pb_Refresh_Data_clicked();
 }
@@ -266,6 +274,22 @@ void MainWindow::setDATA()
     }
 }
 
+void MainWindow::setIcon()
+{
+    QPixmap pixmap(":/images/arrow-2.png");
+
+    ui->pb_hs_treeView->setIcon(QIcon(pixmap));
+    ui->pb_hs_treeView->setIconSize(QSize(20,20));
+    ui->pb_hs_treeView->setIcon(ui->pb_hs_treeView->icon().pixmap(QSize(20,20)).transformed(QMatrix().rotate(90)));
+
+    ui->pb_hs_log->setIcon(QIcon(pixmap));
+    ui->pb_hs_log->setIconSize(QSize(20,20));
+
+    ui->pb_hs_toolBox->setIcon(QIcon(pixmap));
+    ui->pb_hs_toolBox->setIconSize(QSize(20,20));
+    ui->pb_hs_toolBox->setIcon(ui->pb_hs_toolBox->icon().pixmap(QSize(20,20)).transformed(QMatrix().rotate(270)));
+}
+
 void MainWindow::on_treeView_doubleClicked(const QModelIndex &index)
 {
 //    QString name = index.data(Qt::DisplayRole).toString();
@@ -344,4 +368,85 @@ void MainWindow::on_pb_Refresh_Data_clicked()
                 QDateTime::currentDateTime().toString("HH:mm:ss:zzz - ") +
                 "Request Data ...");
     w.request_Data(manager, t.key, module_id);
+}
+
+void MainWindow::on_pb_hs_treeView_clicked()
+{
+    if (ui->treeView->isHidden()) {
+        ui->treeView->setHidden(false);
+    } else {
+        ui->treeView->setHidden(true);
+    }
+    ui->pb_hs_treeView->setIcon(ui->pb_hs_treeView->icon().pixmap(QSize(20,20)).transformed(QMatrix().rotate(180)));
+}
+
+void MainWindow::on_pb_hs_toolBox_clicked()
+{
+    if (ui->toolBox->isHidden()) {
+        ui->toolBox->setHidden(false);
+    } else {
+        ui->toolBox->setHidden(true);
+    }
+    ui->pb_hs_toolBox->setIcon(ui->pb_hs_toolBox->icon().pixmap(QSize(20,20)).transformed(QMatrix().rotate(180)));
+
+}
+
+void MainWindow::on_pb_hs_log_clicked()
+{
+    if (ui->pte_log->isHidden()) {
+        ui->pte_log->setHidden(false);
+    } else {
+        ui->pte_log->setHidden(true);
+    }
+    ui->pb_hs_log->setIcon(ui->pb_hs_log->icon().pixmap(QSize(20,20)).transformed(QMatrix().rotate(180)));
+}
+
+void MainWindow::grafik_selectionChanged()
+{
+    mGr.selectionChanged(ui->customPlot);
+}
+
+void MainWindow::grafik_mousePress()
+{
+    mGr.mousePress(ui->customPlot);
+}
+
+void MainWindow::grafik_mouseWheel()
+{
+    mGr.mouseWheel(ui->customPlot);
+}
+
+void MainWindow::grafik_axisLabelDoubleClick(QCPAxis *axis, QCPAxis::SelectablePart part)
+{
+    mGr.axisLabelDoubleClick(this, axis, part, ui->customPlot);
+}
+
+void MainWindow::grafik_legendDoubleClick(QCPLegend *legend, QCPAbstractLegendItem *item)
+{
+    mGr.legendDoubleClick(this, legend, item, ui->customPlot);
+}
+
+void MainWindow::grafik_titleDoubleClick(QMouseEvent *event)
+{
+    mGr.titleDoubleClick(this, event, ui->customPlot);
+}
+
+void MainWindow::grafik_contextMenuRequest(QPoint pos)
+{
+    mGr.contextMenuRequest(this, pos, ui->customPlot);
+}
+
+void MainWindow::grafik_addRandomGraph()
+{
+    mGr.addRandomGraph(ui->customPlot);
+}
+
+void MainWindow::grafik_removeSelectedGraph()
+{
+    mGr.removeSelectedGraph(ui->customPlot);
+}
+
+void MainWindow::grafik_removeAllGraphs()
+{
+    mGr.removeAllGraphs(ui->customPlot);
 }
