@@ -68,7 +68,7 @@ void Login::replyFinished(QNetworkReply *reply)
         }
     }
     if (success) {
-        QMessageBox::information(this, "Sarasvati Operational", "Login Success ..!!");
+//        QMessageBox::information(this, "Sarasvati Operational", "Login Success ..!!");
         mainwindow = new MainWindow(this, api_key);
         mainwindow->show();
         this->hide();

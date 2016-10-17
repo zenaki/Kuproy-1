@@ -72,7 +72,7 @@ QPushButton:hover {
         <item>
          <widget class="QTabWidget" name="tabWidget">
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="tab_maps">
            <attribute name="title">
@@ -80,7 +80,7 @@ QPushButton:hover {
            </attribute>
            <layout class="QGridLayout" name="gridLayout_2">
             <item row="0" column="0">
-             <widget class="QWebEngineView" name="webView" native="true">
+             <widget class="QWebEngineView" name="webGmap" native="true">
               <property name="minimumSize">
                <size>
                 <width>500</width>
@@ -97,12 +97,12 @@ QPushButton:hover {
            </attribute>
            <layout class="QGridLayout" name="gridLayout_10">
             <item row="0" column="0">
-             <widget class="QCustomPlot" name="customPlot" native="true">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
+             <widget class="QWebEngineView" name="webGraph" native="true">
+              <property name="minimumSize">
+               <size>
+                <width>500</width>
+                <height>300</height>
+               </size>
               </property>
              </widget>
             </item>
@@ -1571,7 +1571,7 @@ QPushButton:hover {
   </widget>
   <action name="actionRefresh">
    <property name="icon">
-    <iconset>
+    <iconset resource="../sarasvati.qrc">
      <normaloff>:/images/refresh.png</normaloff>:/images/refresh.png</iconset>
    </property>
    <property name="text">
@@ -1589,13 +1589,9 @@ QPushButton:hover {
    <extends>QWidget</extends>
    <header>qwebengineview.h</header>
   </customwidget>
-  <customwidget>
-   <class>QCustomPlot</class>
-   <extends>QWidget</extends>
-   <header>model/qcustomplot.h</header>
-   <container>1</container>
-  </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="../sarasvati.qrc"/>
+ </resources>
  <connections/>
 </ui>

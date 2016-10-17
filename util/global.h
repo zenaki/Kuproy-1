@@ -13,6 +13,10 @@
 #include <QJsonObject>
 #include <QJsonArray>
 
+#include <QWebEngineView>
+#include <QPlainTextEdit>
+#include <QLabel>
+
 #include <QTreeView>
 #include <QTableView>
 #include <QStandardItem>

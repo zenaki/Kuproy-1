@@ -22,12 +22,11 @@ MainWindow::MainWindow(QWidget *parent, QString key) :
     ui->toolBox->setCurrentIndex(0);
     ui->pte_log->clear();
 
-    connect(ui->webView->page(), SIGNAL(loadFinished(bool)), this, SLOT(pageFinished()));
+    mWb.setupWeb(this, ui->webGmap);
 
     modelTree = new QStandardItemModel(this);
     tableModel = new QStandardItemModel(this);
     ui->toolBox->setEnabled(false);
-    mGr.setupGrafik(this, ui->customPlot);
 
     this->setIcon();
 
@@ -106,38 +105,12 @@ void MainWindow::refreshTree()
 
 void MainWindow::setMap()
 {
-    QString fileName = ":/map/gmap.html";
-    if(!QFile(fileName).exists()) {
-        QMessageBox::critical(this, tr("Attention !!"),
-        "File not found: " + fileName);
-        return;
-    } else {
-        QFile file(fileName);
-        if (!file.open(QIODevice::ReadOnly)) {
-            QMessageBox::information(this, tr("Sorry .."),
-            "Cannot Set Map ..\n" + file.errorString());
-            return;
-        }
-        QTextStream out(&file);
-        QString output = out.readAll();
-
-        // display contents
-        ui->webView->setHtml(output);
-        ui->pte_log->appendPlainText(
-                    QDateTime::currentDateTime().toString("HH:mm:ss:zzz - ") +
-                    "Set Map ...");
-    }
+    mWb.setMap(this, ui->webGmap, ui->webGraph, ui->pte_log);
 }
 
 void MainWindow::setLatLng()
 {
-//    Request = "-6.40333;106.88776;Module_1;RTU.01;-6.40;106.88776;Module_2;RTU.02";
-    if (!t.ReqLatLng.isEmpty())
-        ui->webView->page()->runJavaScript(QString("split_LatLng('%1');").arg(t.ReqLatLng));
-    lbl_GIF->hide(); lbl_loading->hide(); tmr->stop();
-    ui->pte_log->appendPlainText(
-                QDateTime::currentDateTime().toString("HH:mm:ss:zzz - ") +
-                "Map Finished ...");
+    mWb.setLatLng(ui->webGmap, ui->pte_log, t, lbl_GIF, lbl_loading, tmr);
 }
 
 void MainWindow::setPage()
@@ -343,44 +316,4 @@ void MainWindow::on_pb_hs_log_clicked()
         ui->pte_log->setHidden(true);
     }
     ui->pb_hs_log->setIcon(ui->pb_hs_log->icon().pixmap(QSize(20,20)).transformed(QMatrix().rotate(180)));
-}
-
-void MainWindow::grafik_selectionChanged()
-{
-    mGr.selectionChanged(ui->customPlot);
-}
-
-void MainWindow::grafik_axisLabelDoubleClick(QCPAxis *axis, QCPAxis::SelectablePart part)
-{
-    mGr.axisLabelDoubleClick(this, axis, part, ui->customPlot);
-}
-
-void MainWindow::grafik_legendDoubleClick(QCPLegend *legend, QCPAbstractLegendItem *item)
-{
-    mGr.legendDoubleClick(this, legend, item, ui->customPlot);
-}
-
-void MainWindow::grafik_titleDoubleClick(QMouseEvent *event)
-{
-    mGr.titleDoubleClick(this, event, ui->customPlot);
-}
-
-void MainWindow::grafik_contextMenuRequest(QPoint pos)
-{
-    mGr.contextMenuRequest(this, pos, ui->customPlot);
-}
-
-void MainWindow::grafik_addRandomGraph()
-{
-    mGr.addRandomGraph(ui->customPlot);
-}
-
-void MainWindow::grafik_removeSelectedGraph()
-{
-    mGr.removeSelectedGraph(ui->customPlot);
-}
-
-void MainWindow::grafik_removeAllGraphs()
-{
-    mGr.removeAllGraphs(ui->customPlot);
 }

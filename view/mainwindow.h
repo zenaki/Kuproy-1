@@ -6,7 +6,7 @@
 
 #include "util/global.h"
 #include "model/mtreeview.h"
-#include "model/mgraph.h"
+#include "model/mweb.h"
 #include "model/qcustomplot.h"
 #include "control/work.h"
 
@@ -34,22 +34,13 @@ private slots:
     void on_pb_hs_toolBox_clicked();
     void on_pb_hs_log_clicked();
 
-    void grafik_selectionChanged();
-    void grafik_axisLabelDoubleClick(QCPAxis *axis, QCPAxis::SelectablePart part);
-    void grafik_legendDoubleClick(QCPLegend *legend, QCPAbstractLegendItem *item);
-    void grafik_titleDoubleClick(QMouseEvent *event);
-    void grafik_contextMenuRequest(QPoint pos);
-    void grafik_addRandomGraph();
-    void grafik_removeSelectedGraph();
-    void grafik_removeAllGraphs();
-
 private:
     Ui::MainWindow *ui;
 
     QStandardItemModel *modelTree;
     QStandardItemModel *tableModel;
     mTreeView mTree;
-    mGraph mGr;
+    mWeb mWb;
     work w;
 
     QNetworkAccessManager *manager;

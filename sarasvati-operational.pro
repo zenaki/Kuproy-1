@@ -18,7 +18,8 @@ SOURCES += main.cpp\
         model/mtreeview.cpp \
     control/work.cpp \
     model/qcustomplot.cpp \
-    model/mgraph.cpp
+    model/mgraph.cpp \
+    model/mweb.cpp
 
 HEADERS  += view/mainwindow.h \
         view/login.h \
@@ -26,7 +27,8 @@ HEADERS  += view/mainwindow.h \
         model/mtreeview.h \
     control/work.h \
     model/qcustomplot.h \
-    model/mgraph.h
+    model/mgraph.h \
+    model/mweb.h
 
 FORMS    += view/mainwindow.ui \
         view/login.ui
