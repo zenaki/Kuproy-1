@@ -72,7 +72,7 @@ QPushButton:hover {
         <item>
          <widget class="QTabWidget" name="tabWidget">
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="tab_maps">
            <attribute name="title">
@@ -1571,7 +1571,7 @@ QPushButton:hover {
   </widget>
   <action name="actionRefresh">
    <property name="icon">
-    <iconset resource="../sarasvati.qrc">
+    <iconset>
      <normaloff>:/images/refresh.png</normaloff>:/images/refresh.png</iconset>
    </property>
    <property name="text">
@@ -1596,8 +1596,6 @@ QPushButton:hover {
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="../sarasvati.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

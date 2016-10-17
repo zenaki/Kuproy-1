@@ -16,9 +16,6 @@ public:
     QCustomPlot *customPlot;
     void setupGrafik(QWidget *parent, QCustomPlot *customPlot);
 
-
-signals:
-
 public slots:
     void titleDoubleClick(QWidget *parent, QMouseEvent *event, QCustomPlot *customPlot);
     void axisLabelDoubleClick(QWidget *parent, QCPAxis *axis, QCPAxis::SelectablePart part, QCustomPlot *customPlot);
@@ -26,11 +23,11 @@ public slots:
     void selectionChanged(QCustomPlot *customPlot);
     void mousePress(QCustomPlot *customPlot);
     void mouseWheel(QCustomPlot *customPlot);
+    void moveLegend(QCustomPlot *customPlot);
     void addRandomGraph(QCustomPlot *customPlot);
     void removeSelectedGraph(QCustomPlot *customPlot);
     void removeAllGraphs(QCustomPlot *customPlot);
     void contextMenuRequest(QWidget *parent, QPoint pos, QCustomPlot *customPlot);
-    void moveLegend(QCustomPlot *customPlot);
     void graphClicked(QCPAbstractPlottable *plottable, int dataIndex);
 };
 

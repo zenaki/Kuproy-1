@@ -29,13 +29,13 @@ void mGraph::setupGrafik(QWidget *parent, QCustomPlot *customPlot)
     addRandomGraph(customPlot);
     addRandomGraph(customPlot);
     addRandomGraph(customPlot);
-    customPlot->rescaleAxes();
+//    customPlot->rescaleAxes();
 
     // connect slot that ties some axis selections together (especially opposite axes):
     connect(customPlot, SIGNAL(selectionChangedByUser()), parent, SLOT(grafik_selectionChanged()));
     // connect slots that takes care that when an axis is selected, only that direction can be dragged and zoomed:
-    connect(customPlot, SIGNAL(mousePress(QMouseEvent*)), parent, SLOT(grafik_mousePress()));
-    connect(customPlot, SIGNAL(mouseWheel(QWheelEvent*)), parent, SLOT(grafik_mouseWheel()));
+//    connect(customPlot, SIGNAL(mousePress(QMouseEvent*)), parent, SLOT(grafik_mousePress()));
+//    connect(customPlot, SIGNAL(mouseWheel(QWheelEvent*)), parent, SLOT(grafik_mouseWheel()));
 
     // make bottom and left axes transfer their ranges to top and right axes:
     connect(customPlot->xAxis, SIGNAL(rangeChanged(QCPRange)), customPlot->xAxis2, SLOT(setRange(QCPRange)));
@@ -224,11 +224,11 @@ void mGraph::contextMenuRequest(QWidget *parent, QPoint pos, QCustomPlot *custom
 
   if (customPlot->legend->selectTest(pos, false) >= 0) // context menu on legend requested
   {
-    menu->addAction("Move to top left", parent, SLOT(moveLegend()))->setData((int)(Qt::AlignTop|Qt::AlignLeft));
-    menu->addAction("Move to top center", parent, SLOT(moveLegend()))->setData((int)(Qt::AlignTop|Qt::AlignHCenter));
-    menu->addAction("Move to top right", parent, SLOT(moveLegend()))->setData((int)(Qt::AlignTop|Qt::AlignRight));
-    menu->addAction("Move to bottom right", parent, SLOT(moveLegend()))->setData((int)(Qt::AlignBottom|Qt::AlignRight));
-    menu->addAction("Move to bottom left", parent, SLOT(moveLegend()))->setData((int)(Qt::AlignBottom|Qt::AlignLeft));
+//    menu->addAction("Move to top left", parent, SLOT(grafik_moveLegend()))->setData((int)(Qt::AlignTop|Qt::AlignLeft));
+//    menu->addAction("Move to top center", parent, SLOT(grafik_moveLegend()))->setData((int)(Qt::AlignTop|Qt::AlignHCenter));
+//    menu->addAction("Move to top right", parent, SLOT(grafik_moveLegend()))->setData((int)(Qt::AlignTop|Qt::AlignRight));
+//    menu->addAction("Move to bottom right", parent, SLOT(grafik_moveLegend()))->setData((int)(Qt::AlignBottom|Qt::AlignRight));
+//    menu->addAction("Move to bottom left", parent, SLOT(grafik_moveLegend()))->setData((int)(Qt::AlignBottom|Qt::AlignLeft));
   } else  // general context menu on graphs requested
   {
     menu->addAction("Add random graph", parent, SLOT(grafik_addRandomGraph()));

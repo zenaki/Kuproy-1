@@ -6,7 +6,6 @@
 
 #include "util/global.h"
 #include "model/mtreeview.h"
-#include "model/mdi.h"
 #include "model/mgraph.h"
 #include "model/qcustomplot.h"
 #include "control/work.h"
@@ -36,8 +35,6 @@ private slots:
     void on_pb_hs_log_clicked();
 
     void grafik_selectionChanged();
-    void grafik_mousePress();
-    void grafik_mouseWheel();
     void grafik_axisLabelDoubleClick(QCPAxis *axis, QCPAxis::SelectablePart part);
     void grafik_legendDoubleClick(QCPLegend *legend, QCPAbstractLegendItem *item);
     void grafik_titleDoubleClick(QMouseEvent *event);
@@ -45,19 +42,17 @@ private slots:
     void grafik_addRandomGraph();
     void grafik_removeSelectedGraph();
     void grafik_removeAllGraphs();
+
 private:
     Ui::MainWindow *ui;
 
     QStandardItemModel *modelTree;
     QStandardItemModel *tableModel;
     mTreeView mTree;
-    mdi mDi;
     mGraph mGr;
     work w;
 
     QNetworkAccessManager *manager;
-//    int jml_module; QString api_key;
-//    struct module module_rtu[MAX_RTU];
     QTimer *tmr;
     QLabel *lbl_GIF;
     QLabel *lbl_loading;
@@ -66,11 +61,7 @@ private:
     struct tree t;
     int module_id;
 
-//    void getENV();
-//    void getDATA();
     void refreshTree();
-//    void getTreeID();
-
     void setMap();
     void setLatLng();
 
@@ -81,9 +72,6 @@ private:
     void setDATA();
 
     void setIcon();
-
-//    void setupGrafik();
-
 };
 
 #endif // MAINWINDOW_H

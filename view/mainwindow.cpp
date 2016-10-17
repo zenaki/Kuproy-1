@@ -86,24 +86,12 @@ void MainWindow::refreshTree()
     modelTree->clear();
     int count = 0; QStringList parentTree;
 
-//    if (!t.ReqLatLng.isEmpty()) {
-//        mTree.add_firstItem(modelTree, ui->treeView, "Maps");
-//        parentTree.append("0");
-//        mTree.add_firstItem(modelTree, ui->treeView, "Module");
-//        for (int i = 0; i < t.jml_module; i++) {
-//            mTree.appendItem(modelTree, ui->treeView, t.module[i].module_name, 1);
-//            count++;
-//        }
-//        parentTree.append(QString::number(count));
-//    } else {
-        mTree.add_firstItem(modelTree, ui->treeView, "Module");
-        for (int i = 0; i < t.jml_module; i++) {
-            mTree.appendItem(modelTree, ui->treeView, t.module[i].module_name, 0);
-            count++;
-        }
-        parentTree.append(QString::number(count));
-//    }
-
+    mTree.add_firstItem(modelTree, ui->treeView, "Module");
+    for (int i = 0; i < t.jml_module; i++) {
+        mTree.appendItem(modelTree, ui->treeView, t.module[i].module_name, 0);
+        count++;
+    }
+    parentTree.append(QString::number(count));
     for (int i = 0; i < parentTree.length(); i++) {
         if (parentTree.at(i).toInt() > 0) {
             ui->treeView->setCurrentIndex(modelTree->index(i,0));
@@ -111,12 +99,7 @@ void MainWindow::refreshTree()
                 ui->treeView->setCurrentIndex(modelTree->index(j,0,modelTree->index(i,0)));
                 t.module[j].treeModule = mTree.getTreeID(ui->treeView);
             }
-        }/* else {
-            ui->treeView->setCurrentIndex(modelTree->index(i,0));
-            if (mTree.getTreeID(ui->treeView).data().toString() == "Maps") {
-                t.maps = mTree.getTreeID(ui->treeView);
-            }
-        }*/
+        }
     }
     ui->treeView->collapseAll();
 }
@@ -292,49 +275,10 @@ void MainWindow::setIcon()
 
 void MainWindow::on_treeView_doubleClicked(const QModelIndex &index)
 {
-//    QString name = index.data(Qt::DisplayRole).toString();
-//    QList<QMdiSubWindow *> windows = ui->mdiArea->subWindowList();
-//    bool cek = false;
-//    for (int i = 0; i < windows.size(); i++){
-//        QWidget *sublist = qobject_cast<QWidget *>(windows.at(i)->widget());
-//        if (name == sublist->windowTitle()) {
-////            if (name == "Maps") {
-////                sublist->close();
-////                windows.at(i)->close();
-////                ui->mdiArea->removeSubWindow(sublist);
-////                mDi.new_Gmap_Window(this, ui->mdiArea, name);
-////                sublist->setFocus();
-////            } else {
-////                sublist->close();
-////                windows.at(i)->close();
-////                ui->mdiArea->removeSubWindow(sublist);
-////                mDi.new_Module_Window(this, ui->mdiArea, name);
-////                sublist->setFocus();
-////            }
-//            sublist->setFocus();
-//            cek = true;
-//        }
-//    }
-
-//    if (cek) {
-//        return;
-//    } else {
-//        if (t.maps == index) {
-//            mDi.new_Gmap_Window(this, ui->mdiArea, name, t.ReqLatLng);
-//        } else {
-//            for (int i = 0; i < t.jml_module; i++) {
-//                if (t.module[i].treeModule == index) {
-//                    mDi.new_Module_Window(this, ui->mdiArea, name, t.key, t.module[i].id);
-//                }
-//            }
-//        }
-    //    }
     for (int i = 0; i < t.jml_module; i++) {
         if (t.module[i].treeModule == index) {
             module_id = t.module[i].id;
             this->setPage();
-//            this->setENV(i);
-//            this->setDATA(i, !t.d.regData.isEmpty());
             break;
         }
     }
@@ -404,16 +348,6 @@ void MainWindow::on_pb_hs_log_clicked()
 void MainWindow::grafik_selectionChanged()
 {
     mGr.selectionChanged(ui->customPlot);
-}
-
-void MainWindow::grafik_mousePress()
-{
-    mGr.mousePress(ui->customPlot);
-}
-
-void MainWindow::grafik_mouseWheel()
-{
-    mGr.mouseWheel(ui->customPlot);
 }
 
 void MainWindow::grafik_axisLabelDoubleClick(QCPAxis *axis, QCPAxis::SelectablePart part)
