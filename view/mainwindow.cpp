@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent, QString key) :
     ui->toolBox->setCurrentIndex(0);
     ui->pte_log->clear();
 
-    mWb.setupWeb(this, ui->webGmap);
+    mWb.setupWeb(this, ui->webGmap, ui->webGraph);
 
     modelTree = new QStandardItemModel(this);
     tableModel = new QStandardItemModel(this);
@@ -257,9 +257,14 @@ void MainWindow::on_treeView_doubleClicked(const QModelIndex &index)
     }
 }
 
-void MainWindow::pageFinished()
+void MainWindow::MapPageFinished()
 {
     this->setLatLng();
+}
+
+void MainWindow::GraphPageFinished()
+{
+    this->grafik_setGraph();
 }
 
 void MainWindow::TimeOut()
@@ -316,4 +321,9 @@ void MainWindow::on_pb_hs_log_clicked()
         ui->pte_log->setHidden(true);
     }
     ui->pb_hs_log->setIcon(ui->pb_hs_log->icon().pixmap(QSize(20,20)).transformed(QMatrix().rotate(180)));
+}
+
+void MainWindow::grafik_setGraph()
+{
+    mWb.setGraph(ui->webGraph, ui->pte_log, QCursor::pos().x(), QCursor::pos().y());
 }

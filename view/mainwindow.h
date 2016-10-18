@@ -25,7 +25,8 @@ public:
 private slots:
     void replyFinished(QNetworkReply *reply);
     void on_treeView_doubleClicked(const QModelIndex &index);
-    void pageFinished();
+    void MapPageFinished();
+    void GraphPageFinished();
     void TimeOut();
     void on_actionRefresh_triggered();
     void on_pb_Refresh_Data_clicked();
@@ -33,6 +34,8 @@ private slots:
     void on_pb_hs_treeView_clicked();
     void on_pb_hs_toolBox_clicked();
     void on_pb_hs_log_clicked();
+
+    void grafik_setGraph();
 
 private:
     Ui::MainWindow *ui;

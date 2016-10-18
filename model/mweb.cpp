@@ -5,9 +5,13 @@ mWeb::mWeb(QObject *parent) : QObject(parent)
 
 }
 
-void mWeb::setupWeb(QWidget *parent, QWebEngineView *webGmap)
+void mWeb::setupWeb(QWidget *parent, QWebEngineView *webGmap, QWebEngineView *webGraph)
 {
-    connect(webGmap->page(), SIGNAL(loadFinished(bool)), parent, SLOT(pageFinished()));
+    connect(webGmap->page(), SIGNAL(loadFinished(bool)), parent, SLOT(MapPageFinished()));
+    connect(webGraph->page(), SIGNAL(loadFinished(bool)), parent, SLOT(GraphPageFinished()));
+
+    tmr = new QTimer(this);
+    connect(tmr, SIGNAL(timeout()), parent, SLOT(grafik_setGraph()));
 }
 
 void mWeb::setLatLng(QWebEngineView *webGmap, QPlainTextEdit *pte_log, struct tree t, QLabel *lbl_GIF, QLabel *lbl_loading, QTimer *tmr)
@@ -63,4 +67,16 @@ void mWeb::setMap(QWidget *parent, QWebEngineView *webGmap, QWebEngineView *webG
         // display contents
         webGraph->setHtml(output);
     }
+}
+
+void mWeb::setGraph(QWebEngineView *webGraph, QPlainTextEdit *pte_log, int mX, int mY)
+{
+    webGraph->page()->runJavaScript(QString("mouseX = %1;").arg(mX));
+    webGraph->page()->runJavaScript(QString("mouseY = %1;").arg(mY));
+    webGraph->page()->runJavaScript(QString("setGraph(%1, %2);").arg(mX).arg(mY));
+    pte_log->appendPlainText(
+        QDateTime::currentDateTime().toString("HH:mm:ss:zzz - ") +
+        "Mouse X = " + QString::number(mX) + "; Mouse Y = " + QString::number(mY)
+    );
+    if (!tmr->isActive()) tmr->start(0);
 }
