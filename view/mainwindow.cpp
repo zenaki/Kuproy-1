@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent, QString key) :
     manager = new QNetworkAccessManager(this);
     connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(replyFinished(QNetworkReply *)));
 
-    tmr = new QTimer(this);
+//    tmr = new QTimer(this);
 //    connect(tmr, SIGNAL(timeout()), this, SLOT(TimeOut()));
 
     ui->treeView->header()->setHidden(true);
@@ -27,6 +27,11 @@ MainWindow::MainWindow(QWidget *parent, QString key) :
     modelTree = new QStandardItemModel(this);
     tableModel = new QStandardItemModel(this);
     ui->toolBox->setEnabled(false);
+
+//    scene = new QGraphicsScene(this);
+//    item = new QGraphicsPixmapItem(QPixmap(":/images/icon-daun-biru.png"));
+//    scene->addItem(item);
+//    ui->graphicsView->setScene(scene);
 
     this->setIcon();
 
@@ -43,7 +48,7 @@ MainWindow::MainWindow(QWidget *parent, QString key) :
 
     this->statusBar()->addWidget(lbl_GIF);
     this->statusBar()->addWidget(lbl_loading);
-    lbl_GIF->hide(); lbl_loading->hide(); tmr->stop();
+    lbl_GIF->hide(); lbl_loading->hide(); /*tmr->stop();*/
 
     t.key = key;
     module_id = 0;
@@ -57,7 +62,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::replyFinished(QNetworkReply *reply)
 {
-    lbl_GIF->hide(); lbl_loading->hide(); tmr->stop();
+    lbl_GIF->hide(); lbl_loading->hide(); /*tmr->stop();*/
     QByteArray data;
     data = reply->readAll();
 
@@ -110,7 +115,7 @@ void MainWindow::setMap()
 
 void MainWindow::setLatLng()
 {
-    mWb.setLatLng(ui->webGmap, ui->pte_log, t, lbl_GIF, lbl_loading, tmr);
+    mWb.setLatLng(ui->webGmap, ui->pte_log, t, lbl_GIF, lbl_loading);
 }
 
 void MainWindow::setPage()
@@ -269,13 +274,13 @@ void MainWindow::GraphPageFinished()
 
 void MainWindow::TimeOut()
 {
-    lbl_GIF->hide(); lbl_loading->hide(); tmr->stop();
+    lbl_GIF->hide(); lbl_loading->hide(); /*tmr->stop();*/
     QMessageBox::critical(this, "Sarasvati Operational", "Timeout !");
 }
 
 void MainWindow::on_actionRefresh_triggered()
 {
-    lbl_GIF->show(); lbl_loading->show(); tmr->start(TIMEOUT);
+    lbl_GIF->show(); lbl_loading->show(); /*tmr->start(TIMEOUT);*/
     t.jml_module = 0;
     ui->pte_log->appendPlainText(
                 QDateTime::currentDateTime().toString("HH:mm:ss:zzz - ") +
@@ -285,7 +290,7 @@ void MainWindow::on_actionRefresh_triggered()
 
 void MainWindow::on_pb_Refresh_Data_clicked()
 {
-    lbl_GIF->show(); lbl_loading->show(); tmr->start(TIMEOUT);
+    lbl_GIF->show(); lbl_loading->show(); /*tmr->start(TIMEOUT);*/
     ui->pte_log->appendPlainText(
                 QDateTime::currentDateTime().toString("HH:mm:ss:zzz - ") +
                 "Request Data ...");

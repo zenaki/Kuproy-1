@@ -28,7 +28,7 @@ private:
     Ui::Login *ui;
 
     QNetworkAccessManager *manager;
-    QTimer *t;
+//    QTimer *t;
     MainWindow *mainwindow;
 
     QMovie *loading;

@@ -12,7 +12,7 @@ public:
     explicit mWeb(QObject *parent = 0);
 
     void setupWeb(QWidget *parent, QWebEngineView *webGmap, QWebEngineView *webGraph);
-    void setLatLng(QWebEngineView *webGmap, QPlainTextEdit *pte_log, struct tree t, QLabel *lbl_GIF, QLabel *lbl_loading, QTimer *tmr);
+    void setLatLng(QWebEngineView *webGmap, QPlainTextEdit *pte_log, struct tree t, QLabel *lbl_GIF, QLabel *lbl_loading);
     void setMap(QWidget *parent, QWebEngineView *webGmap, QWebEngineView *webGraph, QPlainTextEdit *pte_log);
 
     QTimer *tmr;

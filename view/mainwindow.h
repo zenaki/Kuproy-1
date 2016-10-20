@@ -7,7 +7,7 @@
 #include "util/global.h"
 #include "model/mtreeview.h"
 #include "model/mweb.h"
-#include "model/qcustomplot.h"
+//#include "model/qcustomplot.h"
 #include "control/work.h"
 
 namespace Ui {
@@ -42,12 +42,14 @@ private:
 
     QStandardItemModel *modelTree;
     QStandardItemModel *tableModel;
+//    QGraphicsPixmapItem *item;
+//    QGraphicsScene *scene;
     mTreeView mTree;
     mWeb mWb;
     work w;
 
     QNetworkAccessManager *manager;
-    QTimer *tmr;
+//    QTimer *tmr;
     QLabel *lbl_GIF;
     QLabel *lbl_loading;
     QMovie *loading;

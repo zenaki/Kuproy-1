@@ -10,7 +10,7 @@ Login::Login(QWidget *parent) :
     manager = new QNetworkAccessManager(this);
     connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(replyFinished(QNetworkReply *)));
 
-    t = new QTimer(this);
+//    t = new QTimer(this);
 //    connect(t, SIGNAL(timeout()), this, SLOT(TimeOut()));
 
     connect(ui->leUsername, SIGNAL(returnPressed()), ui->pbOK, SIGNAL(clicked()));
@@ -29,15 +29,17 @@ Login::~Login()
 
 void Login::on_pbOK_clicked()
 {
-    QNetworkRequest request;
-    QString server = SERVER;
-    QString str_url = server + "/sarasvati/api/sarasvati.php?get=user&format=json";
-    QUrl url =  QUrl::fromEncoded(str_url.toUtf8());
-    request.setUrl(url);
-    manager->get(request);
+    if (ui->lbl_GIF->isHidden()) {
+        QNetworkRequest request;
+        QString server = SERVER;
+        QString str_url = server + "/sarasvati/api/sarasvati.php?get=user&format=json";
+        QUrl url =  QUrl::fromEncoded(str_url.toUtf8());
+        request.setUrl(url);
+        manager->get(request);
 
-    t->start(TIMEOUT);
-    ui->lbl_GIF->show();
+//        t->start(TIMEOUT);
+        ui->lbl_GIF->show();
+    }
 }
 
 void Login::on_pbExit_clicked()
@@ -52,7 +54,7 @@ void Login::on_pbExit_clicked()
 
 void Login::replyFinished(QNetworkReply *reply)
 {
-    ui->lbl_GIF->hide(); t->stop();
+    ui->lbl_GIF->hide(); /*t->stop();*/
     QByteArray data;
     data = reply->readAll();
 
@@ -79,6 +81,6 @@ void Login::replyFinished(QNetworkReply *reply)
 
 void Login::TimeOut()
 {
-    ui->lbl_GIF->hide(); t->stop();
+    ui->lbl_GIF->hide(); /*t->stop();*/
     QMessageBox::critical(this, "Sarasati Opearational - Login", "Cannot login ,,\r\nPlease check your internet connection ..");
 }
