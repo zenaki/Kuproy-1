@@ -91,7 +91,8 @@ void mWeb::setMap(QWidget *parent, QWebEngineView *webGmap, QWebEngineView *webG
 //    webHMI->load(QUrl("google.com"));
 //    webHMI->load(QUrl::fromLocalFile("/home/zenaki/Desktop/GraphEditor/index.html"));
 //    webHMI->load(QUrl::fromLocalFile("/home/zenaki/Desktop/drag&drop.html"));
-    webHMI->load(QUrl::fromLocalFile("/home/zenaki/Desktop/Latihan_Sencha_2/index.html"));
+    qDebug() << QDir::currentPath() + "/Sencha/sencha.html";
+    webHMI->load(QUrl::fromLocalFile(QDir::currentPath() + "/Sencha/sencha.html"));
 }
 
 void mWeb::setGraph(QWebEngineView *webGraph, QPlainTextEdit *pte_log, int mX, int mY)

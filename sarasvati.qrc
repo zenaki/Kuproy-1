@@ -18,5 +18,6 @@
         <file>html/js/HighCharts/Plugins/draggable-legend.js</file>
         <file>html/js/HighCharts/exporting.js</file>
         <file>html/js/HighCharts/highstock.js</file>
+        <file>html/Sencha/sencha.html</file>
     </qresource>
 </RCC>
