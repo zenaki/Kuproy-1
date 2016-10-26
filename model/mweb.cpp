@@ -25,7 +25,7 @@ void mWeb::setLatLng(QWebEngineView *webGmap, QPlainTextEdit *pte_log, struct tr
                     "Map Finished ...");
 }
 
-void mWeb::setMap(QWidget *parent, QWebEngineView *webGmap, QWebEngineView *webGraph ,QPlainTextEdit *pte_log)
+void mWeb::setMap(QWidget *parent, QWebEngineView *webGmap, QWebEngineView *webGraph, QWebEngineView *webHMI, QPlainTextEdit *pte_log)
 {
     QString fileName = ":/html/gmap.html";
     if(!QFile(fileName).exists()) {
@@ -67,6 +67,31 @@ void mWeb::setMap(QWidget *parent, QWebEngineView *webGmap, QWebEngineView *webG
         // display contents
         webGraph->setHtml(output);
     }
+
+//    fileName = ":/html/GraphEditor/index.html";
+//    if(!QFile(fileName).exists()) {
+//        QMessageBox::critical(parent, tr("Attention !!"),
+//        "File not found: " + fileName);
+//        return;
+//    } else {
+//        QFile file(fileName);
+//        if (!file.open(QIODevice::ReadOnly)) {
+//            QMessageBox::information(parent, tr("Sorry .."),
+//            "Cannot Set Graph ..\n" + file.errorString());
+//            return;
+//        }
+//        QTextStream out(&file);
+//        QString output = out.readAll();
+
+//        // display contents
+//        webHMI->setHtml(output);
+//    }
+//    QUrl url("file:///home/zenaki/Desktop/GraphEditor/index.html");
+    QUrl url("https://jgraph.github.io/mxgraph/javascript/examples/grapheditor/www/index.html");
+//    webHMI->load(QUrl("google.com"));
+//    webHMI->load(QUrl::fromLocalFile("/home/zenaki/Desktop/GraphEditor/index.html"));
+//    webHMI->load(QUrl::fromLocalFile("/home/zenaki/Desktop/drag&drop.html"));
+    webHMI->load(QUrl::fromLocalFile("/home/zenaki/Desktop/Latihan_Sencha_2/index.html"));
 }
 
 void mWeb::setGraph(QWebEngineView *webGraph, QPlainTextEdit *pte_log, int mX, int mY)

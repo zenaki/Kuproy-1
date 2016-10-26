@@ -12,8 +12,11 @@
         <file>images/arrow-2.png</file>
         <file>html/gmap.html</file>
         <file>html/graph.html</file>
-	<file>html/js/jquery.min.js</file>
-	<file>html/js/highstock.js</file>
-	<file>html/js/exporting.js</file>
+        <file>html/js/jquery.min.js</file>
+        <file>html/js/highstock.js</file>
+        <file>html/js/exporting.js</file>
+        <file>html/js/HighCharts/Plugins/draggable-legend.js</file>
+        <file>html/js/HighCharts/exporting.js</file>
+        <file>html/js/HighCharts/highstock.js</file>
     </qresource>
 </RCC>

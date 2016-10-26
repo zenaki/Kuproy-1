@@ -105,7 +105,7 @@ void MainWindow::refreshTree()
 
 void MainWindow::setMap()
 {
-    mWb.setMap(this, ui->webGmap, ui->webGraph, ui->pte_log);
+    mWb.setMap(this, ui->webGmap, ui->webGraph, ui->webHMI, ui->pte_log);
 }
 
 void MainWindow::setLatLng()
