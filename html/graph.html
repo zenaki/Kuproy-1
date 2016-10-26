@@ -15,57 +15,80 @@
         </style>
         <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> -->
         <script type="text/javascript" src="qrc:/html/js/jquery.min.js"></script>
-        <!-- <script type="text/javascript" src="js/jquery.min.js"></script> -->
         <script type="text/javascript">
             var mousePos, mouseX = 0, mouseY = 0;
+            var jml_data = 0; datX = [], datY = [];
 
-            function setGraph(mX, mY) {
+            function setGraphMouse(mX, mY) {
                 mouseX = mX;
                 mouseY = mY;
             }
+            
+            function setGraph(Request) {
+                if (Request) {
+                    var spl = Request.split(";");
+                    if (spl.length > 0 && spl.length % 2 == 0) {
+                        jml_data = 0;
+                        for (var i = 0; i < spl.length; i+=2) {
+                            pin[(i*2)] = spl[(i*4)];
+                            pin[(i*2)+1] = spl[(i*4)+1];
+                            env[(i*2)] = spl[(i*4)+2];
+                            env[(i*2)+1] = spl[(i*4)+3];
+                            
+                            datX[jml_data] = spl[i];
+                            datY[jml_data] = spl[i+1];
+                            jml_data++;
+                        }
+                    }
+                }
+            }
 
+            // JQuery Mouse Position
+            // $(function() {
+            //     document.onmousemove = handleMouseMove;
+            //     setInterval(getMousePosition, 100); // setInterval repeats every X ms
+
+            //     function handleMouseMove(event) {
+            //         var dot, eventDoc, doc, body, pageX, pageY;
+
+            //         event = event || window.event; // IE-ism
+
+            //         // If pageX/Y aren't available and clientX/Y are,
+            //         // calculate pageX/Y - logic taken from jQuery.
+            //         // (This is to support old IE)
+            //         if (event.pageX == null && event.clientX != null) {
+            //             eventDoc = (event.target && event.target.ownerDocument) || document;
+            //             doc = eventDoc.documentElement;
+            //             body = eventDoc.body;
+
+            //             event.pageX = event.clientX +
+            //                 (doc && doc.scrollLeft || body && body.scrollLeft || 0) -
+            //                 (doc && doc.clientLeft || body && body.clientLeft || 0);
+            //             event.pageY = event.clientY +
+            //                 (doc && doc.scrollTop  || body && body.scrollTop  || 0) -
+            //                 (doc && doc.clientTop  || body && body.clientTop  || 0 );
+            //         }
+
+            //         mousePos = {
+            //             x: event.pageX,
+            //             y: event.pageY
+            //         };
+            //     }
+
+            //     function getMousePosition() {
+            //         var pos = mousePos;
+            //         if (!pos) {
+            //             // We haven't seen any movement yet
+            //         } else {
+            //             // Use pos.x and pos.y
+            //             // mouseX = pos.x;
+            //             // mouseY = pos.y;
+            //         }
+            //     }
+            // });
+
+            // JQuery HighChart
             $(function () {
-                document.onmousemove = handleMouseMove;
-                setInterval(getMousePosition, 100); // setInterval repeats every X ms
-
-                function handleMouseMove(event) {
-                    var dot, eventDoc, doc, body, pageX, pageY;
-
-                    event = event || window.event; // IE-ism
-
-                    // If pageX/Y aren't available and clientX/Y are,
-                    // calculate pageX/Y - logic taken from jQuery.
-                    // (This is to support old IE)
-                    if (event.pageX == null && event.clientX != null) {
-                        eventDoc = (event.target && event.target.ownerDocument) || document;
-                        doc = eventDoc.documentElement;
-                        body = eventDoc.body;
-
-                        event.pageX = event.clientX +
-                            (doc && doc.scrollLeft || body && body.scrollLeft || 0) -
-                            (doc && doc.clientLeft || body && body.clientLeft || 0);
-                        event.pageY = event.clientY +
-                            (doc && doc.scrollTop  || body && body.scrollTop  || 0) -
-                            (doc && doc.clientTop  || body && body.clientTop  || 0 );
-                    }
-
-                    mousePos = {
-                        x: event.pageX,
-                        y: event.pageY
-                    };
-                }
-
-                function getMousePosition() {
-                    var pos = mousePos;
-                    if (!pos) {
-                        // We haven't seen any movement yet
-                    } else {
-                        // Use pos.x and pos.y
-                        // mouseX = pos.x;
-                        // mouseY = pos.y;
-                    }
-                }
-
                 Highcharts.setOptions({
                     global: {
                         useUTC: false
@@ -78,8 +101,8 @@
                         events: {
                             load: function () {
                                 // set up the updating of the chart each second
-                                var series1 = this.series[0], 
-                                    series2 = this.series[1], 
+                                var series1 = this.series[0],
+                                    series2 = this.series[1],
                                     series3 = this.series[2];
                                 setInterval(function () {
                                     var x = (new Date()).getTime(); // current time
@@ -121,16 +144,32 @@
                         enabled: true
                     },
 
+                    legend: {
+                        layout: 'vertical',
+                        enabled: true,
+                        floating: true,
+                        draggable: true,
+                        align: 'left',
+                        verticalAlign: 'top',
+                        y: 70,
+                        labelFormat: '<span style="color:{color}">{name}</span><br/>',
+                        borderWidth: 1,
+                        borderRadius: 1,
+                        zIndex: 20,
+                        title: {
+                            text: ':: Legend ::'
+                        },
+                    },
+
                     series: [
                         {
                             name: 'Mouse X',
                             data: (function () {
                                 // generate an array of random data
                                 var data = [],
-                                time = (new Date()).getTime(),
-                                i;
+                                time = (new Date()).getTime();
 
-                                for (i = -999; i <= 0; i += 1) {
+                                for (var i = -999; i <= 0; i += 1) {
                                     data.push([
                                         time + i * 1000,
                                         // Math.round(Math.random() * 100)
@@ -144,10 +183,9 @@
                             data: (function () {
                                 // generate an array of random data
                                 var data = [],
-                                time = (new Date()).getTime(),
-                                i;
+                                time = (new Date()).getTime();
 
-                                for (i = -999; i <= 0; i += 1) {
+                                for (var i = -999; i <= 0; i += 1) {
                                     data.push([
                                         time + i * 1000,
                                         // Math.round(Math.random() * 100)
@@ -156,15 +194,14 @@
                                 }
                                 return data;
                             }())
-                        }, /*{
+                        }/*, {
                             name: 'Data 2',
                             data: (function () {
                                 // generate an array of random data
                                 var data = [],
-                                time = (new Date()).getTime(),
-                                i;
+                                time = (new Date()).getTime();
 
-                                for (i = -999; i <= 0; i += 1) {
+                                for (var i = -999; i <= 0; i += 1) {
                                     data.push([
                                         time + i * 1000,
                                         // Math.round(Math.random() * 100)
@@ -173,19 +210,16 @@
                                 }
                                 return data;
                             }())
-                        } */
+                        }*/
                     ]
                 });
             });
         </script>
     </head>
     <body>
-        <!-- <script src="https://code.highcharts.com/stock/highstock.js"></script> -->
-        <script src="qrc:/html/js/highstock.js"></script>
-        <!-- <script src="js/highstock.js"></script> -->
-        <!-- <script src="https://code.highcharts.com/stock/modules/exporting.js"></script> -->
-        <script src="qrc:/html/js/exporting.js"></script>
-        <!-- <script src="js/exporting.js"></script> -->
+        <script src="qrc:/html/js/highcharts/highcharts.js"></script>
+        <script src="qrc:/html/js/highcharts/exporting.js"></script>
+        <script src="qrc:/html/js/highcharts/plugins/draggable-legend.js"></script>
         <div id="graph"></div>
     </body>
 </html>

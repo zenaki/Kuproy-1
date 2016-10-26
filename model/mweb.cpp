@@ -14,12 +14,12 @@ void mWeb::setupWeb(QWidget *parent, QWebEngineView *webGmap, QWebEngineView *we
     connect(tmr, SIGNAL(timeout()), parent, SLOT(grafik_setGraph()));
 }
 
-void mWeb::setLatLng(QWebEngineView *webGmap, QPlainTextEdit *pte_log, struct tree t, QLabel *lbl_GIF, QLabel *lbl_loading, QTimer *tmr)
+void mWeb::setLatLng(QWebEngineView *webGmap, QPlainTextEdit *pte_log, struct tree t, QLabel *lbl_GIF, QLabel *lbl_loading)
 {
     //    Request = "-6.40333;106.88776;Module_1;RTU.01;-6.40;106.88776;Module_2;RTU.02";
         if (!t.ReqLatLng.isEmpty())
             webGmap->page()->runJavaScript(QString("split_LatLng('%1');").arg(t.ReqLatLng));
-        lbl_GIF->hide(); lbl_loading->hide(); tmr->stop();
+        lbl_GIF->hide(); lbl_loading->hide(); /*tmr->stop();*/
         pte_log->appendPlainText(
                     QDateTime::currentDateTime().toString("HH:mm:ss:zzz - ") +
                     "Map Finished ...");
@@ -99,7 +99,7 @@ void mWeb::setGraph(QWebEngineView *webGraph, QPlainTextEdit *pte_log, int mX, i
 {
     webGraph->page()->runJavaScript(QString("mouseX = %1;").arg(mX));
     webGraph->page()->runJavaScript(QString("mouseY = %1;").arg(mY));
-    webGraph->page()->runJavaScript(QString("setGraph(%1, %2);").arg(mX).arg(mY));
+    webGraph->page()->runJavaScript(QString("setGraphMouse(%1, %2);").arg(mX).arg(mY));
     pte_log->appendPlainText(
         QDateTime::currentDateTime().toString("HH:mm:ss:zzz - ") +
         "Mouse X = " + QString::number(mX) + "; Mouse Y = " + QString::number(mY)
